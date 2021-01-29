@@ -95,7 +95,7 @@ func (p *Player) MultiStrike(coinsCount int, isRedPockted bool) error {
 
 	if isRedPockted {
 		removeCoin(red, 1)
-		removeCoin(black, coinsCount-1)
+		removeCoin(black, 1)
 
 		return nil
 	}
