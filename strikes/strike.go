@@ -191,6 +191,7 @@ func (p *Player) foul() {
 
 	if p.FoulCount >= 3 {
 		p.Points--
+		p.FoulCount = 0
 	}
 }
 
