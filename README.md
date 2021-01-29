@@ -13,3 +13,9 @@ go build -mod vendor
 ```
 ./carrom
 ```
+### Run test case
+
+```
+cd strikes
+go test
+```
