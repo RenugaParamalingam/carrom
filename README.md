@@ -16,6 +16,6 @@ go build -mod vendor
 ### Run test case
 
 ```
-cd strikes
+cd carrom
 go test
 ```
