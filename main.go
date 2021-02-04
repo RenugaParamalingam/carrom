@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"time"
 
 	l "github.com/sirupsen/logrus"
 
@@ -13,10 +14,18 @@ func main() {
 	names := []string{"p1", "p2", "p3", "p4"}
 	resetGame := true
 
+	rand.Seed(int64(time.Now().Nanosecond()))
+
 	for resetGame {
-		if err := startGame(names[rand.Intn(4):rand.Intn(4)]); err != nil {
+		start := rand.Intn(4)
+		end := rand.Intn(4)
+
+		if end < start {
+			continue
+		}
+
+		if err := startGame(names[start:end]); err != nil {
 			l.WithError(err).Errorln("invalid request")
-			resetGame = true
 
 			continue
 		}
@@ -37,6 +46,8 @@ func startGame(playerNames []string) error {
 	shouldEndGame := false
 
 	redCoinRandomness := []bool{true, false}
+
+	rand.Seed(int64(time.Now().Nanosecond()))
 
 	for !shouldEndGame {
 		strikeInput <- carrom.Input{
