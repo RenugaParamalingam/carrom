@@ -6,7 +6,7 @@ import (
 
 	l "github.com/sirupsen/logrus"
 
-	"github.com/RenugaParamalingam/carrom/strikes"
+	"github.com/RenugaParamalingam/carrom/carrom"
 )
 
 func main() {
@@ -23,28 +23,32 @@ func main() {
 
 		resetGame = false
 	}
+
 }
 
 func startGame(playerNames []string) error {
-	if !strikes.AddPlayersToGame(playerNames) {
+	if !carrom.AddPlayersToGame(playerNames) {
 		return fmt.Errorf("invalid player names. player names provided: %v", playerNames)
 	}
 
 	l.WithField("playerNames", playerNames).Println("Players on board")
 
-	strikeInput := strikes.NewBoard()
+	strikeInput := carrom.NewBoard()
 	shouldEndGame := false
 
 	redCoinRandomness := []bool{true, false}
 
 	for !shouldEndGame {
-		strikeInput <- strikes.Input{
-			StrikeCode:   rand.Intn(6),
-			CoinsCount:   rand.Intn(10),
-			IsRedPockted: redCoinRandomness[rand.Intn(2)],
+		strikeInput <- carrom.Input{
+			StrikeCode: rand.Intn(6),
+			CoinsPocketedCount: carrom.CoinsPocketedCount{
+				Black:         rand.Intn(10),
+				White:         rand.Intn(10),
+				IsRedPocketed: redCoinRandomness[rand.Intn(2)],
+			},
 		}
 
-		shouldEndGame = strikes.IsGameOver()
+		shouldEndGame = carrom.IsGameOver()
 	}
 
 	return nil
