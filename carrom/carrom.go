@@ -125,7 +125,7 @@ func mapInputToStrike() {
 		case 3:
 			p.StrikerStrike()
 		case 4:
-			err = p.Defunct(c.Black, c.IsRedPocketed)
+			err = p.Defunct(c.CoinsPocketedCount)
 		case 5:
 			p.NoPocket()
 		default:
